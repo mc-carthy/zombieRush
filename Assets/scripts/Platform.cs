@@ -4,12 +4,14 @@ using System.Collections;
 public class Platform : MonoBehaviour {
 
 	[SerializeField]
-	private float platformSpeed = 2;
+	private float speedX = 2;
+	[SerializeField]
 	private float resetPosX = -30f;
+	[SerializeField]
 	private float spawnPosX = 31f;
 
-	private void Update () {
-		transform.Translate(Vector3.left * platformSpeed * Time.deltaTime);
+	protected virtual void Update () {
+		transform.Translate(Vector3.left * speedX * Time.deltaTime);
 
 		if (transform.localPosition.x <= resetPosX) {
 			Vector3 newPos = new Vector3 (

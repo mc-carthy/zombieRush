@@ -1,21 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Rock : MonoBehaviour {
+public class Rock : Platform {
 
 	[SerializeField]
 	private Vector3 topPos, bottomPos;
 	[SerializeField]
-	private float rockSpeed = 3f;
+	private float speedY = 3f;
+
 
 	private void Start () {
 		StartCoroutine (Move (bottomPos));
 	}
 
+	protected override void Update () {
+		base.Update ();
+	}
+
 	private IEnumerator Move(Vector3 target) {
 		while (Mathf.Abs ((target - transform.localPosition).y) > 0.20f) {
 			Vector3 direction = target.y == topPos.y ? Vector3.up : Vector3.down;
-			transform.localPosition += direction * Time.deltaTime * rockSpeed;
+			transform.localPosition += direction * Time.deltaTime * speedY;
 
 			yield return null;
 		}
