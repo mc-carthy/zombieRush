@@ -14,7 +14,9 @@ public class Rock : Platform {
 	}
 
 	protected override void Update () {
-		base.Update ();
+		if (GameManager.instance.IsPlayerActive) {
+			base.Update ();
+		}
 	}
 
 	private IEnumerator Move(Vector3 target) {

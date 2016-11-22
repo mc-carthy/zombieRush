@@ -11,15 +11,18 @@ public class Platform : MonoBehaviour {
 	private float spawnPosX = 31f;
 
 	protected virtual void Update () {
-		transform.Translate(Vector3.left * speedX * Time.deltaTime);
 
-		if (transform.localPosition.x <= resetPosX) {
-			Vector3 newPos = new Vector3 (
-				spawnPosX,
-				transform.position.y,
-				transform.position.z
-			);
-			transform.position = newPos;
+		if (!GameManager.instance.IsGameOver) {
+			transform.Translate(Vector3.left * speedX * Time.deltaTime);
+
+			if (transform.localPosition.x <= resetPosX) {
+				Vector3 newPos = new Vector3 (
+					spawnPosX,
+					transform.position.y,
+					transform.position.z
+				);
+				transform.position = newPos;
+			}
 		}
 	}
 }

@@ -27,8 +27,10 @@ public class Player : MonoBehaviour {
 	}
 
 	private void Update () {
-		if (Input.GetMouseButtonDown(0)) {
-			Jump ();
+		if (!GameManager.instance.IsGameOver) {
+			if (Input.GetMouseButtonDown (0)) {
+				Jump ();
+			}
 		}
 	}
 
@@ -47,6 +49,9 @@ public class Player : MonoBehaviour {
 	}
 
 	private void Jump () {
+		if (!GameManager.instance.IsPlayerActive) {
+			GameManager.instance.PlayerStartedGame ();
+		}
 		anim.Play ("Jump");
 		source.PlayOneShot (sfxJump);
 		rb.useGravity = true;
@@ -57,5 +62,6 @@ public class Player : MonoBehaviour {
 		source.PlayOneShot (sfxDeath);
 		rb.AddForce (new Vector3 (-5f, 2f), ForceMode.Impulse);
 		rb.detectCollisions = false;
+		GameManager.instance.PlayerCollided ();
 	}
 }
