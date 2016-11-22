@@ -1,9 +1,20 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
 	public static GameManager instance;
+
+	[SerializeField]
+	private GameObject mainMenu;
+
+	private bool isGameStarted = false;
+	public bool IsGameStarted {
+		get {
+			return isGameStarted;
+		}
+	}
 
 	private bool isPlayerActive = false;
 	public bool IsPlayerActive {
@@ -20,6 +31,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void Awake () {
+		Assert.IsNotNull (mainMenu);
 		MakeSingleton ();
 	}
 
@@ -39,5 +51,10 @@ public class GameManager : MonoBehaviour {
 
 	public void PlayerStartedGame () {
 		isPlayerActive = true;
+	}
+
+	public void EnterGame () {
+		mainMenu.SetActive (false);
+		isGameStarted = true;
 	}
 }

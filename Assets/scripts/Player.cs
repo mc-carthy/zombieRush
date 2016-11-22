@@ -27,7 +27,10 @@ public class Player : MonoBehaviour {
 	}
 
 	private void Update () {
-		if (!GameManager.instance.IsGameOver) {
+		if (!GameManager.instance.IsGameOver && GameManager.instance.IsGameStarted) {
+			if (!GameManager.instance.IsPlayerActive) {
+				GameManager.instance.PlayerStartedGame ();
+			}
 			if (Input.GetMouseButtonDown (0)) {
 				Jump ();
 			}
@@ -49,13 +52,11 @@ public class Player : MonoBehaviour {
 	}
 
 	private void Jump () {
-		if (!GameManager.instance.IsPlayerActive) {
-			GameManager.instance.PlayerStartedGame ();
-		}
 		anim.Play ("Jump");
 		source.PlayOneShot (sfxJump);
 		rb.useGravity = true;
 		jumping = true;
+
 	}
 
 	private void Die () {
